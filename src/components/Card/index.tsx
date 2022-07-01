@@ -66,17 +66,18 @@ const Card: React.FC<Props> = ({ repo }) => {
     ]
 
     return (
-        <MuiCard>
-            <CardContent>
+        <MuiCard sx={{ maxWidth: 600 }}>
+            <CardContent className="p-0">
                 <Stack spacing={1}>
                     <Link
-                        className="text-left space-x-2"
+                        variant="body1"
+                        className="text-left"
                         href={html_url}
                         target="_blank"
                     >
                         {name}
                     </Link>
-                    <Typography className="space-x-2">{description}</Typography>
+                    <Typography>{description}</Typography>
                     <div className="flex space-x-4">
                         {badgerInfo.map(({ data, icon }) => (
                             <div key={data} className="flex">

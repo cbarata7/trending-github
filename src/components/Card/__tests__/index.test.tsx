@@ -1,7 +1,9 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Card from '..'
-import { repoMock } from '../../../mocks/RepoMock'
+import { reposListMock } from '../../../mocks/ReposMock'
+
+const repoMock = reposListMock[0]
 
 describe('<Card>', () => {
     beforeEach(() => {
@@ -11,7 +13,7 @@ describe('<Card>', () => {
     it('renders the name of the repo with a link to the github', () => {
         expect(screen.getByText(repoMock.name).closest('a')).toHaveAttribute(
             'href',
-            'https://github.com/MalwareTech/CreateDesktop',
+            repoMock.html_url,
         )
     })
 
