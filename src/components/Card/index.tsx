@@ -34,6 +34,7 @@ const Card: React.FC<Props> = ({ repo }) => {
 
     const badgerInfo = [
         {
+            index: 1,
             data: language,
             icon: (
                 <CircleIcon
@@ -44,22 +45,27 @@ const Card: React.FC<Props> = ({ repo }) => {
             ),
         },
         {
+            index: 2,
             data: stargazers_count,
             icon: <StarBorderIcon />,
         },
         {
+            index: 3,
             data: watchers_count,
             icon: <VisibilityOutlinedIcon />,
         },
         {
+            index: 4,
             data: network_count,
             icon: <WorkspacesOutlinedIcon />,
         },
         {
+            index: 5,
             data: open_issues_count,
             icon: <BuildCircleOutlinedIcon />,
         },
         {
+            index: 6,
             data: forks_count,
             icon: <ForkLeftOutlinedIcon />,
         },
@@ -70,19 +76,19 @@ const Card: React.FC<Props> = ({ repo }) => {
             <CardContent className="p-0">
                 <Stack spacing={1}>
                     <Link
-                        variant="body1"
+                        variant="body2"
                         className="text-left"
                         href={html_url}
                         target="_blank"
                     >
                         {name}
                     </Link>
-                    <Typography>{description}</Typography>
+                    <Typography variant="body2">{description}</Typography>
                     <div className="flex space-x-4">
-                        {badgerInfo.map(({ data, icon }) => (
-                            <div key={data} className="flex">
+                        {badgerInfo.map(({ data, icon, index }) => (
+                            <div key={index} className="flex">
                                 {icon}
-                                <Typography>{data}</Typography>
+                                <Typography variant="body2">{data}</Typography>
                             </div>
                         ))}
                     </div>

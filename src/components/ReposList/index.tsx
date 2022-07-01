@@ -1,13 +1,11 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import { Repo } from '../../types/repo'
+import { useRepoInfo } from '../../contexts/RepoInfo'
 import Card from '../Card'
 
-type Props = {
-    repos: Repo[]
-}
+const ReposList: React.FC = () => {
+    const repos = useRepoInfo()
 
-const ReposList: React.FC<Props> = ({ repos }) => {
     return (
         <Stack spacing={2}>
             {repos.map((repo) => (

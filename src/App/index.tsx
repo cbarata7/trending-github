@@ -1,16 +1,16 @@
 import React from 'react'
 import scss from './styles.module.scss'
 import '../main.scss'
-import { reposListMock } from '../mocks/ReposMock'
 import ReposList from '../components/ReposList'
+import { RepoInfoProvider } from '../contexts/RepoInfo'
 
 function App(): JSX.Element {
     return (
-        <div>
+        <RepoInfoProvider>
             <header className={scss['App-header']}>
-                <ReposList repos={reposListMock}></ReposList>
+                <ReposList />
             </header>
-        </div>
+        </RepoInfoProvider>
     )
 }
 
