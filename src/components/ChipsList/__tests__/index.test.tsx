@@ -1,7 +1,8 @@
-import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import ChipList from '..'
+import React from 'react'
+
 import { SearchParamsContext } from '../../../contexts/SearchParams'
+import ChipList from '..'
 
 const searchParamsMock = {
     date: '2022-07-04',

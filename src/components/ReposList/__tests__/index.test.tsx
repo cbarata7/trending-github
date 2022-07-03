@@ -1,9 +1,10 @@
+import { act, render, screen } from '@testing-library/react'
+import axios from 'axios'
 import React from 'react'
-import { render, screen, act } from '@testing-library/react'
+
+import { RepoInfoProvider } from '../../../contexts/RepoInfo'
 import { reposListMock } from '../../../mocks/ReposMock'
 import ReposList from '..'
-import { RepoInfoProvider } from '../../../contexts/RepoInfo'
-import axios from 'axios'
 
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>

@@ -1,5 +1,6 @@
-import React from 'react'
 import { Stack } from '@mui/material'
+import React from 'react'
+
 import { useRepoInfo } from '../../contexts/RepoInfo'
 import Card from '../Card'
 

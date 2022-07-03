@@ -1,7 +1,8 @@
-import React from 'react'
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import SideBar from '..'
+import React from 'react'
+
 import { SearchParamsContext } from '../../../contexts/SearchParams'
+import SideBar from '..'
 
 const searchParamsMock = {
     date: '2022-07-04',

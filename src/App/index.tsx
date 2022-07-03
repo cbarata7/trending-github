@@ -1,12 +1,14 @@
-import React from 'react'
-import scss from './styles.module.scss'
 import './main.scss'
-import ReposList from '../components/ReposList'
-import { RepoInfoProvider } from '../contexts/RepoInfo'
-import SideBar from '../components/SideBar'
+
 import { Typography } from '@mui/material'
+import React from 'react'
+
 import ChipsList from '../components/ChipsList'
+import ReposList from '../components/ReposList'
+import SideBar from '../components/SideBar'
+import { RepoInfoProvider } from '../contexts/RepoInfo'
 import { SearchParamsProvider } from '../contexts/SearchParams'
+import scss from './styles.module.scss'
 
 function App(): JSX.Element {
     return (

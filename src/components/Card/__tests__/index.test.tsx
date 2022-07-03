@@ -1,7 +1,8 @@
-import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import Card from '..'
+import React from 'react'
+
 import { reposListMock } from '../../../mocks/ReposMock'
+import Card from '..'
 
 const repoMock = reposListMock[0]
 

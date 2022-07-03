@@ -17,9 +17,19 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
+    plugins: [
+        'react',
+        '@typescript-eslint',
+        'prettier',
+        'react-hooks',
+        'simple-import-sort',
+        'sort-keys-fix',
+    ],
     rules: {
         'prettier/prettier': 'error',
         semi: 'off',
+        'simple-import-sort/exports': 'error',
+        'simple-import-sort/imports': 'error',
+        'sort-keys-fix/sort-keys-fix': 'warn',
     },
 }

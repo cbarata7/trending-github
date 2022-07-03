@@ -1,3 +1,11 @@
+import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined'
+import CircleIcon from '@mui/icons-material/Circle'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import ForkLeftOutlinedIcon from '@mui/icons-material/ForkLeftOutlined'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
+import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'
 import {
     Card as MuiCard,
     CardContent,
@@ -7,17 +15,10 @@ import {
     Typography,
 } from '@mui/material'
 import React, { useState } from 'react'
-import { Repo } from '../../types/repo'
-import StarBorderIcon from '@mui/icons-material/StarBorder'
-import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'
-import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import ForkLeftOutlinedIcon from '@mui/icons-material/ForkLeftOutlined'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import CircleIcon from '@mui/icons-material/Circle'
-import { findColorFromLanguage } from './helper'
+
 import { isFavorite, switchFavorite } from '../../helpers/favorites'
+import { Repo } from '../../types/repo'
+import { findColorFromLanguage } from './helper'
 
 type Props = {
     repo: Repo
@@ -39,7 +40,6 @@ const Card: React.FC<Props> = ({ repo }) => {
 
     const badgerInfo = [
         {
-            index: 1,
             data: language,
             icon: (
                 <CircleIcon
@@ -48,31 +48,32 @@ const Card: React.FC<Props> = ({ repo }) => {
                     }}
                 />
             ),
+            index: 1,
         },
         {
-            index: 2,
             data: stargazers_count,
             icon: <StarBorderIcon />,
+            index: 2,
         },
         {
-            index: 3,
             data: watchers_count,
             icon: <VisibilityOutlinedIcon />,
+            index: 3,
         },
         {
-            index: 4,
             data: network_count,
             icon: <WorkspacesOutlinedIcon />,
+            index: 4,
         },
         {
-            index: 5,
             data: open_issues_count,
             icon: <BuildCircleOutlinedIcon />,
+            index: 5,
         },
         {
-            index: 6,
             data: forks_count,
             icon: <ForkLeftOutlinedIcon />,
+            index: 6,
         },
     ]
 
