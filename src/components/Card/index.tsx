@@ -1,17 +1,20 @@
 import {
     Card as MuiCard,
     CardContent,
+    IconButton,
     Link,
     Stack,
     Typography,
 } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Repo } from '../../types/repo'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'
 import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import ForkLeftOutlinedIcon from '@mui/icons-material/ForkLeftOutlined'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import CircleIcon from '@mui/icons-material/Circle'
 import { findColorFromLanguage } from './helper'
 
@@ -21,6 +24,7 @@ type Props = {
 
 const Card: React.FC<Props> = ({ repo }) => {
     const {
+        id,
         html_url,
         name,
         description,
@@ -71,10 +75,37 @@ const Card: React.FC<Props> = ({ repo }) => {
         },
     ]
 
+    const [isFavorite, setIsFavorite] = useState(false)
+
+    useEffect(() => {
+        const savedFavorites = JSON.parse(
+            localStorage.getItem('favorites') || '[]',
+        ) as number[]
+
+        setIsFavorite(!!savedFavorites?.find((repoId) => repoId === id))
+    }, [id])
+
+    const favoriteClick = () => {
+        const savedFavorites = JSON.parse(
+            localStorage.getItem('favorites') || '[]',
+        ) as number[]
+
+        const removedValue = savedFavorites?.filter((repoId) => repoId !== id)
+
+        if (removedValue.length === savedFavorites.length) {
+            removedValue.push(id)
+            setIsFavorite(true)
+        } else {
+            setIsFavorite(false)
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(removedValue))
+    }
+
     return (
         <MuiCard sx={{ maxWidth: 600 }}>
-            <CardContent className="p-0">
-                <Stack spacing={1}>
+            <CardContent className="flex items-center">
+                <Stack spacing={1} className="flex-1">
                     <Link
                         variant="body2"
                         className="text-left"
@@ -93,6 +124,18 @@ const Card: React.FC<Props> = ({ repo }) => {
                         ))}
                     </div>
                 </Stack>
+                <div>
+                    <IconButton aria-label="favorite" onClick={favoriteClick}>
+                        {isFavorite ? (
+                            <FavoriteIcon
+                                data-testid="favoriteIcon"
+                                style={{ color: 'red' }}
+                            />
+                        ) : (
+                            <FavoriteBorderIcon data-testid="notFavoriteIcon" />
+                        )}
+                    </IconButton>
+                </div>
             </CardContent>
         </MuiCard>
     )

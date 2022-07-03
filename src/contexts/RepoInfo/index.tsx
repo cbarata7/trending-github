@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { getReposFromGitHub } from '../../Api/getReposFromGitHub'
+import { getReposFromGitHub } from '../../api/getReposFromGitHub'
 import { getDateFromToday } from '../../helpers/getDateFromToday'
 import { Repo } from '../../types/repo'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import scss from './styles.module.scss'
-import '../main.scss'
+import './main.scss'
 import ReposList from '../components/ReposList'
 import { RepoInfoProvider } from '../contexts/RepoInfo'
 

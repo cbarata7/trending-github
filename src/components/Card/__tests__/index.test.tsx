@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import Card from '..'
 import { reposListMock } from '../../../mocks/ReposMock'
 
@@ -28,5 +28,28 @@ describe('<Card>', () => {
         expect(screen.getByText(repoMock.network_count)).toBeInTheDocument()
         expect(screen.getByText(repoMock.open_issues_count)).toBeInTheDocument()
         expect(screen.getByText(repoMock.forks_count)).toBeInTheDocument()
+    })
+
+    it('renders the favorites button', () => {
+        expect(
+            screen.getByRole('button', { name: 'favorite' }),
+        ).toBeInTheDocument()
+    })
+
+    it('changes the favorite icon when the users clicks on the button', () => {
+        const button = screen.getByRole('button', { name: 'favorite' })
+
+        expect(screen.getByTestId('notFavoriteIcon')).toBeInTheDocument()
+        expect(screen.queryByTestId('favoriteIcon')).not.toBeInTheDocument()
+
+        fireEvent.click(button)
+
+        expect(screen.queryByTestId('notFavoriteIcon')).not.toBeInTheDocument()
+        expect(screen.queryByTestId('favoriteIcon')).toBeInTheDocument()
+
+        fireEvent.click(button)
+
+        expect(screen.getByTestId('notFavoriteIcon')).toBeInTheDocument()
+        expect(screen.queryByTestId('favoriteIcon')).not.toBeInTheDocument()
     })
 })

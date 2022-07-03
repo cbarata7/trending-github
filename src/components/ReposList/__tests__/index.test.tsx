@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { reposListMock } from '../../../mocks/ReposMock'
 import ReposList from '..'
 import { RepoInfoProvider } from '../../../contexts/RepoInfo'
@@ -11,14 +11,18 @@ const mockedAxios = axios as jest.Mocked<typeof axios>
 const listOfIds = reposListMock.map(({ id }) => id)
 
 describe('<ReposList>', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         mockedAxios.get.mockResolvedValueOnce({
             data: { items: reposListMock },
         })
-        render(
-            <RepoInfoProvider>
-                <ReposList />
-            </RepoInfoProvider>,
+
+        await act(
+            async () =>
+                void render(
+                    <RepoInfoProvider>
+                        <ReposList />
+                    </RepoInfoProvider>,
+                ),
         )
     })
 
