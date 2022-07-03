@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { getReposFromGitHub } from '../../api/getReposFromGitHub'
-import { getDateFromToday } from '../../helpers/getDateFromToday'
+import { getFavorites } from '../../helpers/favorites'
 import { Repo } from '../../types/repo'
+import { useSearchParams } from '../SearchParams'
 
 type Context = {
     repos: Repo[]
@@ -16,13 +17,28 @@ export const RepoInfoContext = React.createContext<Context>({
 })
 
 export const RepoInfoProvider: React.FC<ProviderProps> = ({ children }) => {
-    const [data, setData] = useState([])
+    const { searchParams } = useSearchParams()
+    const [data, setData] = useState<Repo[]>([])
 
     useEffect(() => {
-        getReposFromGitHub(getDateFromToday(7)).then((res) => {
-            setData(res.data.items)
-        })
-    }, [])
+        getReposFromGitHub(searchParams.date, searchParams.language).then(
+            (res) => {
+                const items = res.data.items as Repo[]
+
+                if (searchParams.favorites) {
+                    const savedFavorites = getFavorites()
+
+                    const favorites = items.filter(({ id }) =>
+                        savedFavorites.includes(id),
+                    )
+
+                    setData(favorites)
+                } else {
+                    setData(items)
+                }
+            },
+        )
+    }, [searchParams.date, searchParams.favorites, searchParams.language])
 
     return (
         <RepoInfoContext.Provider value={{ repos: data }}>

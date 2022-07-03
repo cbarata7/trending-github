@@ -6,7 +6,7 @@ import {
     Stack,
     Typography,
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Repo } from '../../types/repo'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'
@@ -17,6 +17,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import CircleIcon from '@mui/icons-material/Circle'
 import { findColorFromLanguage } from './helper'
+import { isFavorite, switchFavorite } from '../../helpers/favorites'
 
 type Props = {
     repo: Repo
@@ -75,31 +76,16 @@ const Card: React.FC<Props> = ({ repo }) => {
         },
     ]
 
-    const [isFavorite, setIsFavorite] = useState(false)
-
-    useEffect(() => {
-        const savedFavorites = JSON.parse(
-            localStorage.getItem('favorites') || '[]',
-        ) as number[]
-
-        setIsFavorite(!!savedFavorites?.find((repoId) => repoId === id))
-    }, [id])
+    const [isRepoFavorite, setIsRepoFavorite] = useState(isFavorite(id))
 
     const favoriteClick = () => {
-        const savedFavorites = JSON.parse(
-            localStorage.getItem('favorites') || '[]',
-        ) as number[]
+        const removedValue = switchFavorite(id)
 
-        const removedValue = savedFavorites?.filter((repoId) => repoId !== id)
-
-        if (removedValue.length === savedFavorites.length) {
-            removedValue.push(id)
-            setIsFavorite(true)
+        if (removedValue) {
+            setIsRepoFavorite(true)
         } else {
-            setIsFavorite(false)
+            setIsRepoFavorite(false)
         }
-
-        localStorage.setItem('favorites', JSON.stringify(removedValue))
     }
 
     return (
@@ -126,7 +112,7 @@ const Card: React.FC<Props> = ({ repo }) => {
                 </Stack>
                 <div>
                     <IconButton aria-label="favorite" onClick={favoriteClick}>
-                        {isFavorite ? (
+                        {isRepoFavorite ? (
                             <FavoriteIcon
                                 data-testid="favoriteIcon"
                                 style={{ color: 'red' }}
