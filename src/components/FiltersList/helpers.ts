@@ -1,4 +1,4 @@
-import { SearchParams } from '../../contexts/SearchParams'
+import { SearchParams } from '../../types/searchParams'
 
 export const mapSearchParamsToFilters = (searchParams: SearchParams) => {
     const activeFilters = []

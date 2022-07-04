@@ -26,7 +26,6 @@ describe('<Card>', () => {
         expect(screen.getByText(repoMock.language)).toBeInTheDocument()
         expect(screen.getByText(repoMock.stargazers_count)).toBeInTheDocument()
         expect(screen.getByText(repoMock.watchers_count)).toBeInTheDocument()
-        expect(screen.getByText(repoMock.network_count)).toBeInTheDocument()
         expect(screen.getByText(repoMock.open_issues_count)).toBeInTheDocument()
         expect(screen.getByText(repoMock.forks_count)).toBeInTheDocument()
     })

@@ -10,8 +10,8 @@ axios.get(colorsDefinitionUrl).then((res) => {
 
     const languagesArr = Object.keys(data).map((languageKey) => {
         return {
-            language: languageKey,
             color: data[languageKey].color,
+            language: languageKey,
         }
     })
 

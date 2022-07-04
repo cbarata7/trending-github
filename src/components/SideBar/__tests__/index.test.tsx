@@ -7,6 +7,7 @@ import SideBar from '..'
 const searchParamsMock = {
     date: '2022-07-04',
     favorites: false,
+    page: 1,
 }
 
 const mockSetSearchParams = jest.fn()
@@ -39,6 +40,7 @@ describe('<SideBar>', () => {
         expect(mockSetSearchParams).toBeCalledWith({
             date: '2022-07-04',
             favorites: true,
+            page: 1,
         })
     })
 
@@ -61,6 +63,7 @@ describe('<SideBar>', () => {
             date: '2022-07-04',
             favorites: false,
             language: 'JavaScript',
+            page: 1,
         })
     })
 })

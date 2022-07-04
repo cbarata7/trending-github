@@ -3,8 +3,8 @@ import './main.scss'
 import { Typography } from '@mui/material'
 import React from 'react'
 
-import ChipsList from '../components/ChipsList'
-import IconWithDrawer from '../components/IconWithDrawer'
+import FiltersList from '../components/FiltersList'
+import Menu from '../components/Menu'
 import ReposList from '../components/ReposList'
 import { ReactQueryProvider } from '../contexts/ReactQuery'
 import { RepoInfoProvider } from '../contexts/RepoInfo'
@@ -17,13 +17,13 @@ function App(): JSX.Element {
                 <RepoInfoProvider>
                     <div className="flex mt-1">
                         <div className="flex-none">
-                            <IconWithDrawer />
+                            <Menu />
                         </div>
                         <div className="flex grow flex-col items-center gap-6 mr-10">
                             <Typography className="text-[#ffffff]" variant="h4">
                                 Repo trending
                             </Typography>
-                            <ChipsList />
+                            <FiltersList />
                             <ReposList />
                         </div>
                     </div>

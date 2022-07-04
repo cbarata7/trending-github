@@ -583,6 +583,7 @@ export const languageColors = [
     { color: '#adb2cb', language: 'VHDL' },
     { color: '#a56de2', language: 'Vala' },
     { color: '#f26025', language: 'Valve Data Format' },
+    { color: '#507cff', language: 'Velocity Template Language' },
     { color: '#b2b7f8', language: 'Verilog' },
     { color: '#199f4b', language: 'Vim Help File' },
     { color: '#199f4b', language: 'Vim Script' },

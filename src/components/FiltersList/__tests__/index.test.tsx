@@ -2,17 +2,18 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 
 import { SearchParamsContext } from '../../../contexts/SearchParams'
-import ChipList from '..'
+import FiltersList from '..'
 
 const searchParamsMock = {
     date: '2022-07-04',
     favorites: true,
     language: 'JavaScript',
+    page: 1,
 }
 
 const mockSetSearchParams = jest.fn()
 
-describe('<ChipList>', () => {
+describe('<FiltersList>', () => {
     beforeEach(() => {
         render(
             <SearchParamsContext.Provider
@@ -21,19 +22,19 @@ describe('<ChipList>', () => {
                     setSearchParams: mockSetSearchParams,
                 }}
             >
-                <ChipList />
+                <FiltersList />
             </SearchParamsContext.Provider>,
         )
     })
 
-    it('renders the chips for the favorites and the language', () => {
+    it('renders the filters for the favorites and the language', () => {
         expect(screen.getByText('favorites')).toBeInTheDocument()
         expect(
             screen.getByText(`language:${searchParamsMock.language}`),
         ).toBeInTheDocument()
     })
 
-    it('removes the favorite chip when the user clicks on the close button', async () => {
+    it('removes the favorite filter when the user clicks on the close button', async () => {
         const closeButtons = screen.queryAllByTestId('CancelIcon')
 
         await waitFor(() => {
@@ -42,11 +43,12 @@ describe('<ChipList>', () => {
                 date: '2022-07-04',
                 favorites: false,
                 language: 'JavaScript',
+                page: 1,
             })
         })
     })
 
-    it('removes the language chip when the user clicks on the close button', async () => {
+    it('removes the language filter when the user clicks on the close button', async () => {
         const closeButtons = screen.queryAllByTestId('CancelIcon')
 
         await waitFor(() => {
@@ -56,6 +58,7 @@ describe('<ChipList>', () => {
                 date: '2022-07-04',
                 favorites: true,
                 language: undefined,
+                page: 1,
             })
         })
     })

@@ -3,12 +3,12 @@ import React from 'react'
 
 import {
     defaultSearchParams,
-    SearchParams,
     useSearchParams,
 } from '../../contexts/SearchParams'
+import { SearchParams } from '../../types/searchParams'
 import { mapSearchParamsToFilters } from './helpers'
 
-const ChipList: React.FC = () => {
+const FiltersList: React.FC = () => {
     const { searchParams, setSearchParams } = useSearchParams()
 
     const activeFilters = mapSearchParamsToFilters(searchParams)
@@ -21,7 +21,7 @@ const ChipList: React.FC = () => {
     }
 
     return (
-        <Stack data-testid="chipList" direction="row" spacing={1}>
+        <Stack data-testid="FiltersList" direction="row" spacing={1}>
             {activeFilters.map(({ key, label }) => (
                 <Chip
                     key={key}
@@ -34,4 +34,4 @@ const ChipList: React.FC = () => {
     )
 }
 
-export default ChipList
+export default FiltersList

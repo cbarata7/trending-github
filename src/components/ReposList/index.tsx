@@ -18,7 +18,7 @@ const ReposList: React.FC = () => {
     }
 
     return (
-        <>
+        <div data-testid="ReposList">
             <WaitingBackdrop isLoading={isLoading} />
             <div className="flex flex-col justify-items-center items-center gap-2 mb-2">
                 <Stack spacing={2}>
@@ -42,7 +42,7 @@ const ReposList: React.FC = () => {
                     onChange={handleChange}
                 />
             </div>
-        </>
+        </div>
     )
 }
 

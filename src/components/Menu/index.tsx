@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 
 import SideBar from '../SideBar'
 
-const IconWithDrawer: React.FC = () => {
+const Menu: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <>
+        <div data-testid="Menu">
             <IconButton
                 aria-label="upload picture"
                 onClick={() => setIsOpen(true)}
@@ -23,8 +23,8 @@ const IconWithDrawer: React.FC = () => {
             >
                 <SideBar />
             </Drawer>
-        </>
+        </div>
     )
 }
 
-export default IconWithDrawer
+export default Menu
