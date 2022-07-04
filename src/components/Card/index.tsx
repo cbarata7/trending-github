@@ -94,7 +94,9 @@ const Card: React.FC<Props> = ({ repo }) => {
                     >
                         {name}
                     </Link>
-                    <Typography variant="body2">{description}</Typography>
+                    <Typography className="max-w-lg" variant="body2">
+                        {description}
+                    </Typography>
                     <div className="flex space-x-4">
                         {badgerInfo.map(({ data, icon, index }) => (
                             <div

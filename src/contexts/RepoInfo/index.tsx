@@ -8,6 +8,7 @@ import { useSearchParams } from '../SearchParams'
 type Context = {
     repos: Repo[]
     isLoading: boolean
+    numberOfRepos: number
 }
 
 type ProviderProps = {
@@ -16,6 +17,7 @@ type ProviderProps = {
 
 export const RepoInfoContext = React.createContext<Context>({
     isLoading: false,
+    numberOfRepos: 0,
     repos: [],
 })
 
@@ -24,9 +26,11 @@ export const RepoInfoProvider: React.FC<ProviderProps> = ({ children }) => {
     const { data, isLoading } = useGetRepoFromGitHub({
         currentDate: searchParams.date,
         language: searchParams.language,
+        page: searchParams.page,
     })
 
     let fullData = data?.items
+    const numberOfRepos = data?.total_count || 0
 
     if (searchParams.favorites) {
         const savedFavorites = getFavorites()
@@ -35,7 +39,13 @@ export const RepoInfoProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     return (
-        <RepoInfoContext.Provider value={{ isLoading, repos: fullData || [] }}>
+        <RepoInfoContext.Provider
+            value={{
+                isLoading,
+                numberOfRepos: numberOfRepos,
+                repos: fullData || [],
+            }}
+        >
             {children}
         </RepoInfoContext.Provider>
     )

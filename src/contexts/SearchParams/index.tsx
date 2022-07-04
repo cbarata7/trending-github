@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 
 import { getDateFromToday } from '../../helpers/getDateFromToday'
+import { SearchParams } from '../../types/searchParams'
 
 type Context = {
     searchParams: SearchParams
@@ -11,16 +12,11 @@ type ProviderProps = {
     children: React.ReactNode
 }
 
-export type SearchParams = {
-    date: string
-    favorites: boolean
-    language?: string
-}
-
 export const defaultSearchParams = {
     date: getDateFromToday(7),
     favorites: false,
     language: undefined,
+    page: 1,
 }
 
 export const SearchParamsContext = React.createContext<Context>({

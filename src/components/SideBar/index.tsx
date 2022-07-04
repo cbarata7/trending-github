@@ -13,8 +13,9 @@ import {
 } from '@mui/material'
 import React from 'react'
 
-import { SearchParams, useSearchParams } from '../../contexts/SearchParams'
+import { useSearchParams } from '../../contexts/SearchParams'
 import { languageColors as language } from '../../helpers/languageColors'
+import { SearchParams } from '../../types/searchParams'
 
 const SideBar: React.FC = () => {
     const { searchParams, setSearchParams } = useSearchParams()
