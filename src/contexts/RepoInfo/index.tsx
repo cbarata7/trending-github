@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
-import { getReposFromGitHub } from '../../api/getReposFromGitHub'
+import { useGetRepoFromGitHub } from '../../api/getReposFromGitHub'
 import { getFavorites } from '../../helpers/favorites'
 import { Repo } from '../../types/repo'
 import { useSearchParams } from '../SearchParams'
 
 type Context = {
     repos: Repo[]
+    isLoading: boolean
 }
 
 type ProviderProps = {
@@ -14,41 +15,30 @@ type ProviderProps = {
 }
 
 export const RepoInfoContext = React.createContext<Context>({
+    isLoading: false,
     repos: [],
 })
 
 export const RepoInfoProvider: React.FC<ProviderProps> = ({ children }) => {
     const { searchParams } = useSearchParams()
-    const [data, setData] = useState<Repo[]>([])
+    const { data, isLoading } = useGetRepoFromGitHub({
+        currentDate: searchParams.date,
+        language: searchParams.language,
+    })
 
-    useEffect(() => {
-        getReposFromGitHub(searchParams.date, searchParams.language).then(
-            (res) => {
-                const items = res.data.items as Repo[]
+    let fullData = data?.items
 
-                if (searchParams.favorites) {
-                    const savedFavorites = getFavorites()
+    if (searchParams.favorites) {
+        const savedFavorites = getFavorites()
 
-                    const favorites = items.filter(({ id }) =>
-                        savedFavorites.includes(id),
-                    )
-
-                    setData(favorites)
-                } else {
-                    setData(items)
-                }
-            },
-        )
-    }, [searchParams.date, searchParams.favorites, searchParams.language])
+        fullData = data?.items?.filter(({ id }) => savedFavorites.includes(id))
+    }
 
     return (
-        <RepoInfoContext.Provider value={{ repos: data }}>
+        <RepoInfoContext.Provider value={{ isLoading, repos: fullData || [] }}>
             {children}
         </RepoInfoContext.Provider>
     )
 }
 
-export const useRepoInfo = (): Repo[] => {
-    const { repos } = useContext(RepoInfoContext)
-    return repos
-}
+export const useRepoInfo = () => useContext(RepoInfoContext)

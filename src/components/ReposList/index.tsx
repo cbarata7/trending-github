@@ -1,20 +1,29 @@
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import React from 'react'
 
 import { useRepoInfo } from '../../contexts/RepoInfo'
 import Card from '../Card'
+import WaitingBackdrop from '../WaitingBackdrop'
 
 const ReposList: React.FC = () => {
-    const repos = useRepoInfo()
+    const { repos, isLoading } = useRepoInfo()
 
     return (
-        <Stack spacing={2}>
-            {repos.map((repo) => (
-                <div data-testid={`testing-Card-${repo.id}`} key={repo.id}>
-                    <Card repo={repo}></Card>
-                </div>
-            ))}
-        </Stack>
+        <>
+            <WaitingBackdrop isLoading={isLoading} />
+            <Stack spacing={2}>
+                {repos.map((repo) => (
+                    <div data-testid={`testing-Card-${repo.id}`} key={repo.id}>
+                        <Card repo={repo}></Card>
+                    </div>
+                ))}
+                {!isLoading && repos.length < 1 && (
+                    <Typography>
+                        There&apos;s no results for these filters
+                    </Typography>
+                )}
+            </Stack>
+        </>
     )
 }
 

@@ -1,17 +1,43 @@
 import axios from 'axios'
+import { useQuery } from 'react-query'
+
+import { Repo } from '../types/repo'
 
 const url =
-    'https://api.github.com/search/repositories?q=created:>:currentDate&sort=stargazers_count&order=desc'
+    'https://api.github.com/search/repositories?q=:query&sort=stargazers_count&order=desc'
 
-const url_language =
-    'https://api.github.com/search/repositories?q=language::language+created:>:currentDate&sort=stargazers_count&order=desc'
+type GetRepoFromGitHubArgs = {
+    currentDate: string
+    language?: string
+}
 
-export const getReposFromGitHub = (currentDate: string, language?: string) => {
-    const callUrl = language
-        ? url_language
-              .replace(':currentDate', currentDate)
-              .replace(':language', language)
-        : url.replace(':currentDate', currentDate)
+type GetRepoFromGitHubResponse = {
+    items: Repo[]
+}
 
-    return axios.get(callUrl)
+enum QueryCacheKeys {
+    GET_REPO_FROM_GITHUB = 'GET_REPO_FROM_GITHUB',
+}
+
+const generateQuery = (params: GetRepoFromGitHubArgs) => {
+    let baseQuery = `created:>${params.currentDate}`
+
+    if (params.language) {
+        baseQuery = baseQuery.concat(`+language:${params.language}`)
+    }
+
+    return baseQuery
+}
+
+export const useGetRepoFromGitHub = (params: GetRepoFromGitHubArgs) => {
+    return useQuery(
+        [QueryCacheKeys.GET_REPO_FROM_GITHUB, params.language],
+        async () => {
+            const { data } = await axios.get<GetRepoFromGitHubResponse>(
+                url.replace(':query', generateQuery(params)),
+            )
+
+            return data
+        },
+    )
 }
