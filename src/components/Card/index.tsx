@@ -5,7 +5,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ForkLeftOutlinedIcon from '@mui/icons-material/ForkLeftOutlined'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import WorkspacesOutlinedIcon from '@mui/icons-material/WorkspacesOutlined'
 import {
     Card as MuiCard,
     CardContent,
@@ -33,7 +32,6 @@ const Card: React.FC<Props> = ({ repo }) => {
         language,
         stargazers_count,
         watchers_count,
-        network_count,
         open_issues_count,
         forks_count,
     } = repo
@@ -61,19 +59,14 @@ const Card: React.FC<Props> = ({ repo }) => {
             index: 3,
         },
         {
-            data: network_count,
-            icon: <WorkspacesOutlinedIcon />,
-            index: 4,
-        },
-        {
             data: open_issues_count,
             icon: <BuildCircleOutlinedIcon />,
-            index: 5,
+            index: 4,
         },
         {
             data: forks_count,
             icon: <ForkLeftOutlinedIcon />,
-            index: 6,
+            index: 5,
         },
     ]
 
@@ -90,7 +83,7 @@ const Card: React.FC<Props> = ({ repo }) => {
     }
 
     return (
-        <MuiCard sx={{ maxWidth: 600 }}>
+        <MuiCard>
             <CardContent className="flex items-center">
                 <Stack spacing={1} className="flex-1">
                     <Link
@@ -104,7 +97,10 @@ const Card: React.FC<Props> = ({ repo }) => {
                     <Typography variant="body2">{description}</Typography>
                     <div className="flex space-x-4">
                         {badgerInfo.map(({ data, icon, index }) => (
-                            <div key={index} className="flex">
+                            <div
+                                key={index}
+                                className="flex flex-col items-center justify-center sm:flex-row"
+                            >
                                 {icon}
                                 <Typography variant="body2">{data}</Typography>
                             </div>
